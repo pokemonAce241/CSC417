@@ -191,8 +191,7 @@ had(X =Id had Y)  :- fact(X,Id,Fs),  b4(Y,Fs).
 b4(X had Y,Fs)    :- b4(X,Fs), b4(Y,Fs).
 b4(X =  Y, Fs)    :- member(X=Y,Fs).
 
-member(X=Y,[X=Y|_]).
-member(X=Y,[_|Fs]) :- member(X=Y,Fs).
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This is a complete implementation of "has"

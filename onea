@@ -186,6 +186,9 @@ testNepotism :-
 % WARNING: the code for "had" is incomplete
 
 had(X and Y)      :- had(X), had(Y).
+had(X or Y)       :- had(X); had(Y).
+had(not X)        :- had(/+ X).
+
 had(X =Id had Y)  :- fact(X,Id,Fs),  b4(Y,Fs).
 
 b4(X had Y,Fs)    :- b4(X,Fs), b4(Y,Fs).

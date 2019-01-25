@@ -189,8 +189,9 @@ had(X and Y)      :- had(X), had(Y).
 had(X =Id had Y)  :- fact(X,Id,Fs),  b4(Y,Fs).
 had(X or Y)       :- had(X); had(Y).
 had(not X)        :- had(\+ X).
+had(X had Y)  :- fact(X,_,Fs),  b4(Y,Fs).
 
-had(X=Id had Y had Z in V) :- fact(X,Id,Fs),  b4(Y,Fs),in(Z, V, Fs).   
+   
 
 
 
@@ -200,9 +201,8 @@ b4(X =< Y, Fs)    :- member(X=Z,Fs), Z =< Y.
 b4(X >= Y, Fs)    :- member(X=Z,Fs), Z >= Y.
 b4(X < Y, Fs)    :- member(X=Z,Fs), Z < Y.
 b4(X > Y, Fs)    :- member(X=Z,Fs), Z > Y.
-b4(X had Y in V, Fs) :- b4(X,Fs), in(Y, V, Fs).
 
-in(X, [S|T],Fs) :- member(X=S,Fs);in(X,T,Fs).
+b4(X in Y, Fs)    :- member(X=S,Fs), member(S, Y).
 
 
 

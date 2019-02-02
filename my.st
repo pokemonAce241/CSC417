@@ -120,6 +120,33 @@ visit: aBlock
      (self instVarAt: i) visit: aBlock ]
 !!
 
+Magic sub: #Num
+  instanceVariableNames: 'n mu m2 sd id lo hi txt w'
+  classVariableNames: ''
+  poolDictionaries: ''
+  category: nil !
+  
+  !Num methods!
+  init
+      n := 0.
+      mu := 0.
+      m2 := 0.
+      sd := 0.
+      id := 'id'.
+      lo := 10raisedTo32.
+      hi := -1*10raisedTo32.
+      txt := 'txt'.
+      w := 1.
+      ^ super new init
+      !!
+      
+      !Num methodsFor: 'numInc'!
+      numInc: 
+      
+      !!
+
+
+
 Magic sub: #Employee has: 'name age shoesize'
 
 ! Employee methods !

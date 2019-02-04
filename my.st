@@ -137,8 +137,8 @@ Magic sub: #Num
       hi := -1*10raisedTo32.
       txt := 'txt'.
       w := 1.
-      ^ super new init
-      !!
+      ^ super new init !
+      
       
       !Num methodsFor: 'numInc'!
       numInc: t   xVal: x dVal: d
@@ -154,9 +154,9 @@ Magic sub: #Num
           ifTrue[t.lo := x].
         (t.n >= 2)
           ifTrue[t.sd := (t.me/(t.n - 1 + 10raisedTo-32))raisedTo0.5].
-        ^x
+        ^x !
         
-      !!
+      
       
       !Num methodsFor: 'numDec'!
       numDec: t xVal: x dVal: d
@@ -170,8 +170,8 @@ Magic sub: #Num
        t.m2 := t.m2-d*(x-t.mu).
        (t.n>=2)
           ifTrue: [t.sd := (t.m2/(t.n -1 + 10raisedTo-32))raisedTo0.5].
-          ^x
-      !!
+          ^x !
+      
 
 
 

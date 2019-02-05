@@ -133,44 +133,46 @@ Magic sub: #Num
       m2 := 0.
       sd := 0.
       id := 'id'.
-      lo := 10raisedTo32.
-      hi := -1*10raisedTo32.
+      lo := 10 raisedTo 32.
+      hi := -10 raisedTo 31.
       txt := 'txt'.
       w := 1.
       ^ super new init !
       
       
       !Num methodsFor: 'numInc'!
-      numInc: t   xVal: x dVal: d
+      numInc: x 
+      |d|
         (x = '?')
           ifTrue: [^x].
-        t.n := t.n+1.
-        d := x-t.n.
-        t.mu := t.mu + d/d.n.
-        t.m2 := t.m2 +d*(x-t.mu).
-        (x > t.hi)
-          ifTrue[t.hi := x].
-        (x < t.lo)
-          ifTrue[t.lo := x].
-        (t.n >= 2)
-          ifTrue[t.sd := (t.me/(t.n - 1 + 10raisedTo-32))raisedTo0.5].
+        self.n := t.n+1.
+        d := x-self.n.
+        self.mu := self.mu + d/d.n.
+        self.m2 := self.m2 +d*(x-self.mu).
+        (x > self.hi)
+          ifTrue[self.hi := x].
+        (x < self.lo)
+          ifTrue[self.lo := x].
+        (self.n >= 2)
+          ifTrue[self.sd := (self.m2/(self.n - 1 + 10 raisedTo -32)) raisedTo 0.5].
         ^x !
         
       
       
       !Num methodsFor: 'numDec'!
-      numDec: t xVal: x dVal: d
+      numDec: x 
+      |d|
        (x = '?')
           ifTrue: [^x].
-       (t.n = 1)
+       (self.n = 1)
           ifTrue: [^x].
-       t.n := t.n-1.
+       self.n := self.n-1.
        d := x-t.mu.
-       t.mu := t.mu -d/t.n.
-       t.m2 := t.m2-d*(x-t.mu).
-       (t.n>=2)
-          ifTrue: [t.sd := (t.m2/(t.n -1 + 10raisedTo-32))raisedTo0.5].
-          ^x !
+       self.mu := self.mu -d/self.n.
+       self.m2 := self.m2-d*(x-self.mu).
+       (self.n>=2)
+          ifTrue: [self.sd := (self.m2/(self.n -1 + 10 raisedTo -32)) raisedTo 0.5].
+          ^x !!
       
 
 

@@ -144,16 +144,16 @@ Magic sub: #Num
       |d|
         (x = '?')
           ifTrue: [^x].
-        self.n := t.n+1.
-        d := x-self.n.
-        self.mu := self.mu + d/d.n.
-        self.m2 := self.m2 +d*(x-self.mu).
-        (x > self.hi)
-          ifTrue[self.hi := x].
-        (x < self.lo)
-          ifTrue[self.lo := x].
-        (self.n >= 2)
-          ifTrue[self.sd := (self.m2/(self.n - 1 + 10 raisedTo -32)) raisedTo 0.5].
+        n := n+1.
+        d := x-n.
+        mu := mu + d/d.n.
+        m2 := m2 +d*(x-mu).
+        (x > hi)
+          ifTrue[hi := x].
+        (x < lo)
+          ifTrue[lo := x].
+        (n >= 2)
+          ifTrue[sd := (m2/(n - 1 + 10 raisedTo -32)) raisedTo 0.5].
         ^x !
         
       
@@ -163,14 +163,14 @@ Magic sub: #Num
       |d|
        (x = '?')
           ifTrue: [^x].
-       (self.n = 1)
+       (n = 1)
           ifTrue: [^x].
-       self.n := self.n-1.
-       d := x-t.mu.
-       self.mu := self.mu -d/self.n.
-       self.m2 := self.m2-d*(x-self.mu).
-       (self.n>=2)
-          ifTrue: [self.sd := (self.m2/(self.n -1 + 10 raisedTo -32)) raisedTo 0.5].
+       n := n-1.
+       d := x-mu.
+       mu := mu -d/n.
+       m2 := m2-d*(x-mu).
+       (n>=2)
+          ifTrue: [sd := (m2/(n - 1 + 10 raisedTo -32)) raisedTo 0.5].
           ^x !!
       
 

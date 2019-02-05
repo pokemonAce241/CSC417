@@ -136,8 +136,7 @@ Magic sub: #Num
       lo := 10 raisedTo 32.
       hi := -10 raisedTo 31.
       txt := 'txt'.
-      w := 1.
-      ^ super new init !
+      w := 1  !
       
       
       !Num methodsFor: 'numInc'!

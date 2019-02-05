@@ -144,10 +144,10 @@ Magic sub: #Num
       |d|
         (x = '?')
           ifTrue: [^x].
-        n := n+1.
-        d := x-n.
+        n := n + 1.
+        d := x - n.
         mu := mu + d/d.n.
-        m2 := m2 +d*(x-mu).
+        m2 := m2 + d*(x - mu).
         (x > hi)
           ifTrue[hi := x].
         (x < lo)
@@ -167,8 +167,8 @@ Magic sub: #Num
           ifTrue: [^x].
        n := n-1.
        d := x-mu.
-       mu := mu -d/n.
-       m2 := m2-d*(x-mu).
+       mu := mu - d/n.
+       m2 := m2 - d*(x - mu).
        (n>=2)
           ifTrue: [sd := (m2/(n - 1 + 10 raisedTo -32)) raisedTo 0.5].
           ^x !!

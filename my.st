@@ -120,7 +120,23 @@ visit: aBlock
      (self instVarAt: i) visit: aBlock ]
 !!
 
-Magic sub: #Num
+!Magic methodsFor: 'ejection'!
+eject: aBlock
+^self select: [:x| (aBlock value:x)not]
+!!
+
+!Magic methodsFor: 'b4'!
+b4Now: aBlock
+|b4|
+self do: [:now|
+b4 = nil
+  ifFalse: [aBlock value:b4 value: now].
+  b4 := now]
+!!
+
+
+
+Magic subclass: #Num
   instanceVariableNames: 'n mu m2 sd id lo hi txt w'
   classVariableNames: ''
   poolDictionaries: ''
@@ -133,45 +149,41 @@ Magic sub: #Num
       m2 := 0.
       sd := 0.
       id := 'id'.
-      lo := 10 raisedTo 32.
-      hi := -10 raisedTo 31.
+      lo := 10 raisedTo: 32.
+      hi := -10 raisedTo: 31.
       txt := 'txt'.
-      w := 1  !
+      w := 1  
+      !!
       
       
       !Num methodsFor: 'numInc'!
       numInc: x 
       |d|
-        (x = '?')
-          ifTrue: [^x].
+        (x = '?') ifTrue: [^x].
         n := n + 1.
         d := x - n.
-        mu := mu + d/d.n.
+        mu := mu + d/n.
         m2 := m2 + d*(x - mu).
-        (x > hi)
-          ifTrue[hi := x].
-        (x < lo)
-          ifTrue[lo := x].
-        (n >= 2)
-          ifTrue[sd := (m2/(n - 1 + 10 raisedTo -32)) raisedTo 0.5].
-        ^x !
+        (x > hi) ifTrue: [hi := x].
+        (x < lo) ifTrue: [lo := x].
+        (n >= 2) ifTrue: [sd :=  (m2/(n - 1 + 10 raisedTo: -32)) raisedTo: 0.5].
+        ^x 
+        !!
         
       
       
       !Num methodsFor: 'numDec'!
       numDec: x 
       |d|
-       (x = '?')
-          ifTrue: [^x].
-       (n = 1)
-          ifTrue: [^x].
+       (x = '?') ifTrue: [^x].
+       (n = 1)  ifTrue: [^x].
        n := n-1.
        d := x-mu.
        mu := mu - d/n.
        m2 := m2 - d*(x - mu).
-       (n>=2)
-          ifTrue: [sd := (m2/(n - 1 + 10 raisedTo -32)) raisedTo 0.5].
-          ^x !!
+       (n>=2) ifTrue: [sd := (m2/(n - 1 + 10 raisedTo: -32)) raisedTo: 0.5].
+          ^x 
+          !!
       
 
 

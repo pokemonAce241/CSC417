@@ -141,6 +141,31 @@ printOn: aStream
 goodB4Now
   #(10 21 32 43 54) b4Now: [:b4 :now|
     ((now-b4)/b4) asFloat oo] !!
+    
+    
+    
+    "b4Now Iterator*************************************************************************************"
+    !Collection methods!
+    b4Now: aBlock
+    1 to: (self size -1) do: [:x | aBlock value: (self at: x) value: (self at: x+1)]
+    !!
+    
+    "Polymorhism visit**********************************************************************************"
+    ! Collection methods !
+      visit: aBlock
+     1 to (self size) do: [:x | ((self at :x) visit: aBlock)]
+	    !!
+
+    ! String methodsFor: 'visit' !
+		visit: aBlock
+	   aBlock value: self
+	  !!
+
+     ! Object methods !
+      visit: aBlock
+       aBlock value: self
+     !!
+
 
 
 ! Object class methodsFor: 'testing' !

@@ -55,4 +55,9 @@ self do: [:now|
 b4 = nil
   ifFalse: [aBlock value:b4 value: now].
   b4 := now]
+!
+
+!Num methodsFor: 'nextPutAll'!
+nextPutAll: numbers
+numbers do: [:x | self numInc: x].
 !!

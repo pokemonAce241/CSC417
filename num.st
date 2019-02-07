@@ -11,7 +11,7 @@ Magic subclass: #Num has : 'n mu m2 sd id lo hi txt w'!
       hi := -10 raisedTo: 31.
       txt := 'txt'.
       w := 1  
-      !!
+      !
       
       
       !Num methodsFor: 'numInc'!
@@ -25,7 +25,8 @@ Magic subclass: #Num has : 'n mu m2 sd id lo hi txt w'!
         (x > hi) ifTrue: [hi := x].
         (x < lo) ifTrue: [lo := x].
         (n >= 2) ifTrue: [sd :=  (m2/(n - 1 + 10 raisedTo: -32)) raisedTo: 0.5].
-        ^x !
+        ^x 
+        !
         
       
       
@@ -39,7 +40,8 @@ Magic subclass: #Num has : 'n mu m2 sd id lo hi txt w'!
        mu := mu - d/n.
        m2 := m2 - d*(x - mu).
        (n>=2) ifTrue: [sd := (m2/(n - 1 + 10 raisedTo: -32)) raisedTo: 0.5].
-          ^x !      
+          ^x 
+          !      
 
 !Num methodsFor: 'nextPutAll'!
 nextPutAll: numbers

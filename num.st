@@ -39,23 +39,7 @@ Magic subclass: #Num has : 'n mu m2 sd id lo hi txt w'!
        mu := mu - d/n.
        m2 := m2 - d*(x - mu).
        (n>=2) ifTrue: [sd := (m2/(n - 1 + 10 raisedTo: -32)) raisedTo: 0.5].
-          ^x !
-      
-      
-!Num methodsFor: 'ejection'!
-eject: aBlock
-^self select: [:x| (aBlock value:x)not]
-!
-
-
-!Num methodsFor: 'b4'!
-b4Now: aBlock
-|b4|
-self do: [:now|
-b4 = nil
-  ifFalse: [aBlock value:b4 value: now].
-  b4 := now]
-!
+          ^x !      
 
 !Num methodsFor: 'nextPutAll'!
 nextPutAll: numbers

@@ -120,8 +120,6 @@ visit: aBlock
      (self instVarAt: i) visit: aBlock ]
 !!
 
-
-
 Magic sub: #Employee has: 'name age shoesize'
 
 ! Employee methods !

@@ -1,3 +1,4 @@
+#! /usr/bin/gst
 "-------------------------------------------------------"
 ! Object methods !
 s
@@ -7,8 +8,7 @@ s
 oo
    "Show self on Transcript"
    Transcript nextPutAll: self s;
-              cr!
-!
+              cr!!
 
 ! Symbol methods !
 talk
@@ -17,11 +17,11 @@ talk
 
 "-------------------------------------------------------"
 ! String methods !
-  talk
+talk
   "Shorthand for reading in code"
   ^FileStream fileIn: self,'.st' !
 
-  asWords
+asWords
   "Returns self, divided on whitespace."
   ^(self tokenize: '\s+') asArray !
 
@@ -121,6 +121,17 @@ visit: aBlock
      (self instVarAt: i) visit: aBlock ]
 !!
 
+! Magic methodsFor: 'eject'!
+eject: aBlock
+^self select: [:x| (aBlock value:x)not]
+!!
+
+!Magic methodsFor: 'b4'!
+b4Now: aBlock
+|b4|
+self do: [:now| b4 = nil ifFalse:[aBlock value:b4 value:now]. b4:=now]
+!!
+
 Magic sub: #Employee has: 'name age shoesize'
 
 ! Employee methods !
@@ -138,35 +149,72 @@ printOn: aStream
      nextPutAll: ')' !
 !
 
+Magic subclass: #Num
+  instanceVariableNames: 'n mu m2 sd id lo hi txt w'
+  classVariableNames: ''
+  poolDictionaries: ''
+  category: nil !
+
+! Num methods !
+init
+       n := 0.
+       mu :=  0.
+       m2 :=  0.
+       sd := 0.
+       id := 0.
+       lo := 10 raisedTo: 32.
+       hi := (-10 raisedTo: 32).
+       txt := 'txt'.
+       w := 1. 
+       
+   !!
+   !Num methodsFor: 'numInc'!
+   numInc: x
+   |d|
+   (x = '?') ifTrue: [^x].
+   n := n + 1.
+   d := x - mu.
+   mu := mu + (d/n).
+   m2 := m2 + (d * (x - mu)).
+   (x > hi) ifTrue: [hi := x].
+   (x < lo) ifTrue: [lo := x].
+   (n >= 2) ifTrue: [sd := (m2 / (n - 1 + 10 raisedTo -32)) raisedTo: 0.5.].
+   ^x.
+   !!
+   
+   !Num methodsFor: 'numDec'!
+   numDec: x
+   |d|
+   (x = '?') ifTrue: [^x].
+   (n = 1) ifTrue: [^x].
+   n := n - 1.
+   d := x - mu.
+   mu := mu - (d / n).
+   m2 := m2 - (d * (x - mu)).
+   (n >= 2) ifTrue: [ sd := (m2 / (n - 1 + (10 raisedTo -32)))raisedTo: 0.5.].
+   ^x.
+   !!
+   
 !Collection class methodsFor: 'testing' !
 goodB4Now
   #(10 21 32 43 54) b4Now: [:b4 :now|
     ((now-b4)/b4) asFloat oo] !!
-    
-    
-    
-    "b4Now Iterator*************************************************************************************"
-    !Collection methods!
-    b4Now: aBlock
-    1 to: (self size -1) do: [:x | aBlock value: (self at: x) value: (self at: x+1)]
-    !!
-    
-    "Polymorhism visit**********************************************************************************"
-    ! Collection methods !
-      visit: aBlock
-     1 to (self size) do: [:x | ((self at :x) visit: aBlock)]
-	    !!
 
-    ! String methodsFor: 'visit' !
-		visit: aBlock
-	   aBlock value: self
-	  !!
+  "-------------------1b4. Polymorphism----------------------"
+  ! Collection methods !
+  visit: aBlock
+    self do: aBlock
+  !!
 
-     ! Object methods !
-      visit: aBlock
-       aBlock value: self
-     !!
+  ! String methodsFor: 'visit' !
+  visit: aBlock
+   aBlock value: self
+  !!
 
+  ! Object methods !
+  visit: aBlock
+   aBlock value: self
+  !!
 
 
 ! Object class methodsFor: 'testing' !
@@ -180,8 +228,6 @@ goodVisit
     w := {1. 2. #abc. z. {x. x. x. {y.}.}. 4. {{{5.}.}.}.}.
     "z visit: [:n| n oo].
     "
-    w visit:[:a| a oo] 
+    w visit:[:a| a oo]
+     
 !!
-
-
-

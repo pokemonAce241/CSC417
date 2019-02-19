@@ -1,0 +1,40 @@
+1a. A association list in lisp is a form of data structure. This list involves a list of two pairs of data associated with each 
+    other through conses. The data on eiether ends can be variables, strings, intergers, nil, etc. as well as other association list, which
+    is what is usually done to extend a list by adding new entries to the front of the list. The front of the pair in the list is the car; 
+    it is also called a key. The back end is called the cdr; it is also called the datum.
+
+1b. The assoc function is a search functions that is used to find the first instance of a 'key' in a assoctiation list. This involves the
+    function being provided a list and a variable that is the key character to compare with the pairs in the list. Taking these parameters,
+    the function goes through the list comparing the car of the pairs with the provided key character. If function finds a pair whos car 
+    matches the key character the pair is returned. If no mathc is found with any of the car's of the list entries, then nil is returned.
+
+1c. mapcan is an interesting function takes in a function and list (or lists) and returns a new list. More specifically, the function takes
+    in a function as one of its parameter and goes through the elements of a list, applying each element to the function and concatenating
+    the results into a list that is returned once the function goes through the initial list. This can be demonstrated through the following
+    example. Lets say the function is called as (mapcan(lambda(x)(if(>= x 7) (list(- x 3)nil)) ' (9 6 -3 12 7 4 10), mapcan would then go 
+    through each element of the list and apply it to the function. Like the it would take 9 and insert it so that 9 >= 7. Because this is
+    true, the element passes the function and is added to a result list. However, thier is a condition so the element is altered before 
+    being added to the list. This would involve subtracting 3 from 9 thier by adding 6 to the result list. The next number would be 6, but
+    since it fails the function, because it is niether greater or equal to 7, the function skips the element and moves on to the next element
+    This process continues until the function goes through each element. By the end of the process, the function has concatenated a result
+    list consisting of (6 9 4 7). This list is returned to the user.
+
+1d.
+
+1e. 
+
+1f.
+
+1g.
+
+1h. The gensym function in lisp involves creating a new symbol that assesible in any package. This function is much like another lisp 
+    function known as make-symbol; the difference is how the symbol is made. The name of the symbol is made up of two part. The first
+    part is known as the prefix, which is G by deafult. The second part is known as the suffix, which is usually defaults to the value
+    of a gensym-counter in lisp. The function can have a optional string or non-negative variable in the pareters of the function that 
+    can affect how the symbol is created. If the variable is a string, then the prefix is the provided string. If the variable is a
+    non negative integer, then the suffix is the provided integer. So if gensym "?" is called, then lisp would create a new symbol with
+    ? being the prefix creating a symbol like #:?3125.
+
+1i.
+
+1j.

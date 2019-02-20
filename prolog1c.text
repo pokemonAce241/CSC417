@@ -19,11 +19,46 @@
     This process continues until the function goes through each element. By the end of the process, the function has concatenated a result
     list consisting of (6 9 4 7). This list is returned to the user.
 
-1d.
+1d. In lisp, we create a hash table through the make-hash-table function. This function doesn't require any arguments, but thier are several
+    arguments you can include in the function. Arguments a key argument that can provive a key/car to the table, a test argument to determine
+    how keys are compared, a rehash-size argument to specify how to increase the hash tables size whenever it gets full, and a rehash-threshold
+    argument to specify how many elements a hash tble can have before it needs to expand. Because of a hash table can hold a huge collection of
+    pairs for a list they are usually used to create lists in lisp. For the example, creating a hash table would look like
+    (setq hlist (make-hash-table))
+    
+    When writing a element into a hash table we would use the setf function. The function inself requires two arguments. One argument is what 
+    defines the place in memory the element is being places, and the second argument is the element to be added. For the first argument we 
+    need another function to define the memory location in the hash table we want to write an element in. The function is gethash. using this
+    functions requries two arguments; one is the associated key we want to write an element into the hash table, the second arguement is the 
+    hash table we want to write to. Taking all this we would write something in the example like this.
+    (setf (gethash '001' hlist) '(Jason Benckert))
+    (setf (gethash '002' hlist) '(Nancy Griffon))
+    
+    Gethash not only is used in writing into the hash table, but it can be used on its own to read the value from the hash table. As explained
+    earlier, it requries the associated key and hash table to return the value. The function alone returns two values, first is the value of 
+    associated key, second is a boolean showing if the key was found in the table. If thier is no value in the associated key, NIL is returned.
+    Reading the table in the example would look like this.
+    (gethash '001' hlist)
+    Jason Benckert
+    T
+    (gethash '003' hlist)
+    NIL
+    T
+    
+1e. The sublis function is used to subsitute objects in a tree, which is a algimation of conses association lists. The function needs several
+    arguments to work. First is a association list that will be used to substitute some of the subtree's or leafs in the tree. Then thier is
+    the tree itself we are wanting to make changes to. When a sublis function is launched it goes through the elements in the tree. If the
+    key of an subtree or leaf matches the key in the assosiation list, it is replaced by the object of the association list that the key of the
+    tree is associated with. If the function makes a change in the tree, the newly changed tree is returned. If no change is made the original
+    tree is returned. a example can be seen below.
+    (setq tree '(4(4 5) ((4 5 6)) ((( 4 5 6 7)))))
+    (sublis '((6,"four")) tree)
+    => (4(4 5) ((4 5 "four")) ((( 4 5 "four" 7))))
+      
 
-1e. 
-
-1f.
+1f. In Prolog, the bindins variable "binds" is used to give a value to a variable in the program. This is important for it allow prolog to 
+    create querys that can help to satisfy goals. Binding also helps to create the basis needed to make lists and assosiation list possible
+    to create in lisp.
 
 1g.
 

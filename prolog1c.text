@@ -1,0 +1,75 @@
+1a. A association list in lisp is a form of data structure. This list involves a list of two pairs of data associated with each 
+    other through conses. The data on eiether ends can be variables, strings, intergers, nil, etc. as well as other association list, which
+    is what is usually done to extend a list by adding new entries to the front of the list. The front of the pair in the list is the car; 
+    it is also called a key. The back end is called the cdr; it is also called the datum.
+
+1b. The assoc function is a search functions that is used to find the first instance of a 'key' in a assoctiation list. This involves the
+    function being provided a list and a variable that is the key character to compare with the pairs in the list. Taking these parameters,
+    the function goes through the list comparing the car of the pairs with the provided key character. If function finds a pair whos car 
+    matches the key character the pair is returned. If no mathc is found with any of the car's of the list entries, then nil is returned.
+
+1c. mapcan is an interesting function takes in a function and list (or lists) and returns a new list. More specifically, the function takes
+    in a function as one of its parameter and goes through the elements of a list, applying each element to the function and concatenating
+    the results into a list that is returned once the function goes through the initial list. This can be demonstrated through the following
+    example. Lets say the function is called as (mapcan(lambda(x)(if(>= x 7) (list(- x 3)nil)) ' (9 6 -3 12 7 4 10), mapcan would then go 
+    through each element of the list and apply it to the function. Like the it would take 9 and insert it so that 9 >= 7. Because this is
+    true, the element passes the function and is added to a result list. However, thier is a condition so the element is altered before 
+    being added to the list. This would involve subtracting 3 from 9 thier by adding 6 to the result list. The next number would be 6, but
+    since it fails the function, because it is niether greater or equal to 7, the function skips the element and moves on to the next element
+    This process continues until the function goes through each element. By the end of the process, the function has concatenated a result
+    list consisting of (6 9 4 7). This list is returned to the user.
+
+1d. In lisp, we create a hash table through the make-hash-table function. This function doesn't require any arguments, but thier are several
+    arguments you can include in the function. Arguments a key argument that can provive a key/car to the table, a test argument to determine
+    how keys are compared, a rehash-size argument to specify how to increase the hash tables size whenever it gets full, and a rehash-threshold
+    argument to specify how many elements a hash tble can have before it needs to expand. Because of a hash table can hold a huge collection of
+    pairs for a list they are usually used to create lists in lisp. For the example, creating a hash table would look like
+    (setq hlist (make-hash-table))
+    
+    When writing a element into a hash table we would use the setf function. The function inself requires two arguments. One argument is what 
+    defines the place in memory the element is being places, and the second argument is the element to be added. For the first argument we 
+    need another function to define the memory location in the hash table we want to write an element in. The function is gethash. using this
+    functions requries two arguments; one is the associated key we want to write an element into the hash table, the second arguement is the 
+    hash table we want to write to. Taking all this we would write something in the example like this.
+    (setf (gethash '001' hlist) '(Jason Benckert))
+    (setf (gethash '002' hlist) '(Nancy Griffon))
+    
+    Gethash not only is used in writing into the hash table, but it can be used on its own to read the value from the hash table. As explained
+    earlier, it requries the associated key and hash table to return the value. The function alone returns two values, first is the value of 
+    associated key, second is a boolean showing if the key was found in the table. If thier is no value in the associated key, NIL is returned.
+    Reading the table in the example would look like this.
+    (gethash '001' hlist)
+    Jason Benckert
+    T
+    (gethash '003' hlist)
+    NIL
+    T
+    
+1e. The sublis function is used to subsitute objects in a tree, which is a algimation of conses association lists. The function needs several
+    arguments to work. First is a association list that will be used to substitute some of the subtree's or leafs in the tree. Then thier is
+    the tree itself we are wanting to make changes to. When a sublis function is launched it goes through the elements in the tree. If the
+    key of an subtree or leaf matches the key in the assosiation list, it is replaced by the object of the association list that the key of the
+    tree is associated with. If the function makes a change in the tree, the newly changed tree is returned. If no change is made the original
+    tree is returned. a example can be seen below.
+    (setq tree '(4(4 5) ((4 5 6)) ((( 4 5 6 7)))))
+    (sublis '((6,"four")) tree)
+    => (4(4 5) ((4 5 "four")) ((( 4 5 "four" 7))))
+      
+
+1f. In Prolog, the bindins variable "binds" is used to give a value to a variable in the program. This is important for it allow prolog to 
+    create querys that can help to satisfy goals. Binding also helps to create the basis needed to make lists and assosiation list possible
+    to create in lisp.
+
+1g.
+
+1h. The gensym function in lisp involves creating a new symbol that assesible in any package. This function is much like another lisp 
+    function known as make-symbol; the difference is how the symbol is made. The name of the symbol is made up of two part. The first
+    part is known as the prefix, which is G by deafult. The second part is known as the suffix, which is usually defaults to the value
+    of a gensym-counter in lisp. The function can have a optional string or non-negative variable in the pareters of the function that 
+    can affect how the symbol is created. If the variable is a string, then the prefix is the provided string. If the variable is a
+    non negative integer, then the suffix is the provided integer. So if gensym "?" is called, then lisp would create a new symbol with
+    ? being the prefix creating a symbol like #:?3125.
+
+1i.
+
+1j.

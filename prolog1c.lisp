@@ -184,11 +184,6 @@ need to fix something inside `data0`.
     (format t "?x in chain4 matches to ~A.~%" ?x))
 )
 
-(defun test3 ()
-  (data0)
-  (do (show ?c))
-)
-
 ;--------- --------- --------- --------- --------- --------- ---------
 (defun unify (x y &optional binds)
   (cond
@@ -222,7 +217,12 @@ need to fix something inside `data0`.
     (and  (ands        (reverse (cdr expr))   binds))
     (or   (ors         (cdr  expr)            binds))
     (not  (negation    (cadr expr)            binds))
-    (do   (evals       (cadr expr)            binds))
+    (do
+      (case (caadr expr)
+        (show (print  (format t "The current binding to ~A is ~A.~%"  (cadadr expr)  (known (cadadr expr) binds)  ) ))
+        (t (evals       (cadr expr)            binds))
+      )
+    )
     (t    (prove1      (car  expr) (cdr expr) binds))
   )
 )
@@ -290,5 +290,21 @@ need to fix something inside `data0`.
   )
 )
 
-;; (test1)
-(test3)
+; jdbencke code from slack
+(defun known (x binds &optional index)
+   (if (null index) (setq index 0))
+   (if (>= index (list-length binds))
+       x
+       (let ((k (nth index binds)))
+           (setq k (list k))
+           (let ((y (caar k)))
+           (let ((z (cdar k)))
+           (if (equalp (format nil "~{~A~}" (list x)) (format nil "~{~A~}" (list y)))
+               (progn
+                   (known z binds))
+               (progn
+                   (incf index)
+                   (known x binds index))))))))
+
+
+(test1)

@@ -60,7 +60,8 @@
     create queries that can help to satisfy goals. "Binds" also helps to create the basis needed to make lists and association lists possible
     to create in Prolog.
 
-1g.
+1g. In the program, ?x is binded as an atom. Because the ?x is considered a atom from the binding it can use a = operator already defined by the 
+    LISP program. The atoms equality will be evaluated like any other atom in LISP.
 
 1h. The gensym function in lisp involves creating a new symbol that accessible in any package. This function is much like another lisp
     function known as make-symbol; the difference is how the symbol is made. The name of the symbol is made up of two part. The first
@@ -79,4 +80,7 @@
     collision. Renaming variables is one of the best ways to distinquish variables since not only does it make it less compersume for the programer
     it also make it easier to have recursive definitions without the problem of different invocations for the same clause.
 
-1j.
+1j. When the code of prove runs, each variable is sent to a list that binds to ands while being checked from left to right. However, in order to 
+    represent and prosess variables with and properly, the variables need to have right associativity with the and function. Problem is, the 
+    program sends variables to the list in reverse. So (prove (and 3 8 2)) would send (2 8 3) to the list to be processed. So reverse is needed so
+    that when the ands are processed thery are processed in thier original order.

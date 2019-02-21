@@ -218,6 +218,10 @@ need to fix something inside `data0`.
     (and  (ands        (reverse (cdr expr))   binds))
     (or   (ors         (cdr  expr)            binds))
     (not  (negation    (cadr expr)            binds))
+    (>    (evalsp      expr                   binds))
+    (>=   (evalsp      expr                   binds))
+    (<    (evalsp      expr                   binds))
+    (<=   (evalsp      expr                   binds))
     (do
       (case (caadr expr)
         (show (print  (format t "The current binding to ~A is ~A.~%"  (cadadr expr)  (known (cadadr expr) binds)  ) ))
@@ -280,16 +284,12 @@ need to fix something inside `data0`.
           r))
 
 ; jdbencke code from slack
-(defun has-vars (lst)(
-    if (car lst) ; I think this is what you meant by (if (list))
-    (
-      if(not(var?(car lst)))(  ; changed "val?" to "var?"
-        has-vars (cdr lst)
-      )
-      (cons (car lst)(has-vars(remove(car lst)(cdr lst))))
-    )
-  )
-)
+(defun has-vars (lst)
+     (cond
+          ((null lst) nil)
+          ((var? lst) (cons lst nil))
+          ((not (listp lst)) nil)
+          (t (union (has-vars(car lst)) (has-vars(cdr lst))))))
 
 ; jdbencke code from slack
 (defun known (x binds &optional index)

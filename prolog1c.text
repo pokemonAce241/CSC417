@@ -45,7 +45,7 @@
     NIL
     T
 
-1e. The sublis function is used to substitute objects in a tree, which is a algimation of conses association lists. The function needs several
+1e. The sublis function is used to substitute objects in a tree, which is a combination of conses association lists. The function needs several
     arguments to work. First is a association list that will be used to substitute some of the subtree's or leafs in the tree. Then thier is
     the tree itself we are wanting to make changes to. When a sublis function is launched it goes through the elements in the tree. If the
     key of an subtree or leaf matches the key in the association list, it is replaced by the object of the association list that the key of the
@@ -58,7 +58,7 @@
 
 1f. In Prolog, the bindings variable "binds" is used to give a value to a variable in the program. This is important because it allows prolog to
     create queries that can help to satisfy goals. "Binds" also helps to create the basis needed to make lists and association lists possible
-    to create in lisp.
+    to create in Prolog.
 
 1g.
 
@@ -70,6 +70,13 @@
     non negative integer, then the suffix is the provided integer. So if gensym "?" is called, then lisp would create a new symbol with
     ? being the prefix creating a symbol like #:?3125.
 
-1i.
+1i. The reason the current rules would lead to problems is because of when going through a rule in a program it serches through the query
+    to see if thier are any relationships between variables to satisfy the rule. While the variables between the two rules are similar, they
+    are used for different relationships. But, prolog has no way to tell that the similar variables have different meanings. This could lead to 
+    problems like having when going through having the rule of child see if x is the child of y, this could lead to the program to searching 
+    through the daughter rule making it seem like the parent is the daughter of the child. These kind of problems lead to name collision. This
+    make renaming variables important so that the program can easier distiquish the same variable name having different uses preventing name 
+    collision. Renaming variables is one of the best ways to distinquish variables since not only does it make it less compersume for the programer
+    it also make it easier to have recursive definitions without the problem of different invocations for the same clause.
 
 1j.

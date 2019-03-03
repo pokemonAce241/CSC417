@@ -235,6 +235,49 @@ TODO 2c. Show the output from the following test
 
 |#
 
+(defclass circle ()
+    ((x :accessor circle-x
+        :initarg :x)
+     (y :accessor circle-y
+        :initarg :y)
+     (radius :accessor circle-radius
+        :initarg :radius))
+    (:default-initargs
+     :x 1
+     :y 1
+     :radius 1     
+     )
+)
+
+(defmethod area ((item circle))
+    (* 2 pi (circle-radius item) (circle-radius item))
+)    
+
+
+
+
+(defclass rectangle ()
+    ((x1 :accessor rectangle-x1
+        :initarg :x1)
+     (x2 :accessor rectangle-x2
+        :initarg :x2)
+     (y1 :accessor rectangle-y1
+        :initarg :y1)
+     (y2 :accessor rectangle-y2
+        :initarg :y2))
+    (:default-initargs
+     :x1 0
+     :x2 0
+     :y1 0
+     :y2 0     
+     )
+)
+
+
+(defmethod area ((item rectangle))
+    (* (rectangle-x2 item) (rectangle-y2 item))
+)
+
 (defun polymorphism()
   (let ((sum 0)
         (all (list (circle :radius 1) 
@@ -245,7 +288,7 @@ TODO 2c. Show the output from the following test
     (print `(polymorphism ,sum))))
 
 ; to run, uncomment the following
-'(polymorphism)
+(polymorphism)
 
 #|
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

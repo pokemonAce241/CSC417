@@ -1,4 +1,4 @@
-  #!/usr/bin/env clisp
+#!/usr/bin/env clisp
 ;  vim: set filetype=lisp tabstop=2 shiftwidth=2 expandtab :
 
 

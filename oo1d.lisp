@@ -1,4 +1,6 @@
-  vim: set filetype=lisp tabstop=2 shiftwidth=2 expandtab :
+  #!/usr/bin/env clisp
+;  vim: set filetype=lisp tabstop=2 shiftwidth=2 expandtab :
+
 
 #|
 In this assignment you will use the LISP macro system

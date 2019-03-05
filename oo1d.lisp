@@ -292,7 +292,7 @@ TODO 2c. Show the output from the following test
     (print `(polymorphism ,sum))))
 
 ; to run, uncomment the following
-(polymorphism)
+'(polymorphism)
 
 #|
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

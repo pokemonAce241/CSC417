@@ -251,8 +251,10 @@ TODO 2c. Show the output from the following test
      )
 )
 
-(defmethod area ((item circle))
-    (* 2 pi (circle-radius item) (circle-radius item))
+()
+
+(defmethod area ((object circle))
+    (* 2 pi (circle-radius object) (circle-radius object))
 )    
 
 
@@ -276,8 +278,8 @@ TODO 2c. Show the output from the following test
 )
 
 
-(defmethod area ((item rectangle))
-    (* (rectangle-x2 item) (rectangle-y2 item))
+(defmethod area ((object rectangle))
+    (* (rectangle-x2 object) (rectangle-y2 object))
 )
 
 (defun polymorphism()

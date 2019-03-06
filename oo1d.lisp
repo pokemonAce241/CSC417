@@ -143,6 +143,16 @@ and "datas-as-case" is missing... till you write it.
 (defun send (obj mess &rest args) 
   (apply (funcall obj mess) args))
 
+(defun datas-as-case (dataP)
+ (mapcar (lambda(x)'(,x (labmbda nil, x)) ) dataP )
+
+)
+
+(defun methods-as-case (methods)
+	(mapcar (lambda(y) '(,(car y) (lambda ,@(cdr y)))) methods )
+ 
+ )
+
 (defmacro defthing (klass &key has does)
   (let* ((message (gensym "MESSAGE")))
     `(defun ,klass (&key ,@has) 
@@ -164,6 +174,8 @@ TODO 1c. Implement "data-as-case":
     ((NAME (LAMBDA NIL NAME)) 
      (BALANCE (LAMBDA NIL BALANCE)) 
      (INTEREST-RATE (LAMBDA NIL INTEREST-RATE)))
+
+
     
 1d. Implement  "methods-as-case"
 

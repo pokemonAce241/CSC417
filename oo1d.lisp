@@ -144,12 +144,12 @@ and "datas-as-case" is missing... till you write it.
   (apply (funcall obj mess) args))
 
 (defun datas-as-case (dataP)
- (mapcar (lambda(x)'(,x (labmbda nil, x)) ) dataP )
+ (mapcar (lambda (x)'(,x (lambda nil, x)) ) dataP )
 
 )
 
 (defun methods-as-case (methods)
-	(mapcar (lambda(y) '(,(car y) (lambda ,@(cdr y)))) methods )
+	(mapcar (lambda (y) '(,(car y) (lambda ,@(cdr y)))) methods )
  
  )
 
@@ -207,7 +207,7 @@ TODO 1e. Show the result of expanding you account.
 |#
 
 ; uncomment this to see what an account looks like
-(xpand (account))
+'(xpand (account))
 
 #|
  

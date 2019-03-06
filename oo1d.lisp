@@ -143,15 +143,7 @@ and "datas-as-case" is missing... till you write it.
 (defun send (obj mess &rest args) 
   (apply (funcall obj mess) args))
 
-(defun datas-as-case (dataP)
- (mapcar (lambda (x)'(,x (lambda nil, x)) ) dataP )
 
-)
-
-(defun methods-as-case (methods)
-	(mapcar (lambda (y) '(,(car y) (lambda ,@(cdr y)))) methods )
- 
- )
 
 (defmacro defthing (klass &key has does)
   (let* ((message (gensym "MESSAGE")))
@@ -174,7 +166,16 @@ TODO 1c. Implement "data-as-case":
     ((NAME (LAMBDA NIL NAME)) 
      (BALANCE (LAMBDA NIL BALANCE)) 
      (INTEREST-RATE (LAMBDA NIL INTEREST-RATE)))
+|#
+(defun datas-as-case (dataP)
 
+  (mapcar (lambda (d)
+
+      `(,d (lambda nil ,d)))
+
+     dataP))
+
+#|
 
     
 1d. Implement  "methods-as-case"
@@ -183,6 +184,18 @@ TODO 1c. Implement "data-as-case":
      ==>
      ((MORE (LAMBDA (X) (+ X 1))) 
       (LESS (LAMBDA (X) (- X 1))))
+
+|#
+(defun methods-as-case (methods)
+
+  (mapcar (lambda (m)
+
+    `(,(car m) (lambda ,(cadr m) ,(caddr m))))
+
+    methods)
+
+)
+#|
      
 
 Now that that is working, the following should
@@ -238,6 +251,14 @@ TODO 2a. Define an object "cirle" with variables x,y
     (for  the center of the circle) and radius 
     (to hold the size of the circle). Add a method 
     "area" that returns 2 *pi*radius^2
+|#
+(defthing
+ circle
+ :has ((x 1) (y 1) (radius 1))
+ :does ((area()
+			(*  pi radius radius)))
+)
+#|
 
 ; run this to peek inside circle
 '(xpand (circle))
@@ -245,24 +266,22 @@ TODO 2a. Define an object "cirle" with variables x,y
 TODO 2b. Define an object "rectangle" with variables x1,x2,y1,y2
     that all default value of 0. Add
     a method "area" that returns the area of that rectangle
-TODO 2c. Show the output from the following test
-
 |#
 
-(defthing
- circle
- :has ((x 1) (y 1) (radius 1))
- :does ((area()
-			(* 2  pi radius radius)))
-)
+
 
 (defthing
  rectangle
  :has ((x1 0) (y1 0) (x2 0) (y2 0) )
  :does ((area()
-			* (abs(- y2 y1)) (abs(-  x2 x1)) )))
-)    
+			(*(abs(- y2 y1)) (abs(-  x2 x1))))))
 
+#|
+
+TODO 2c. Show the output from the following test
+
+|#
+    
 (defun polymorphism()
   (let ((sum 0)
         (all (list (circle :radius 1) 
@@ -273,7 +292,7 @@ TODO 2c. Show the output from the following test
     (print `(polymorphism ,sum))))
 
 ; to run, uncomment the following
-'(polymorphism)
+(polymorphism)
 
 #|
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

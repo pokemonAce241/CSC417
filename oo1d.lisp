@@ -158,7 +158,16 @@ and "datas-as-case" is missing... till you write it.
 1. Make defthing work
 
 TODO 1a. Why does mapcar call #'car over the "has"?
+
+When creating getter methods, the program only needs the variable names and not the deafault values of the variables. So by calling
+mapcar #'car over the "has" helps to simplefy the structure so that only the variable names are shown.
+
 TODO 1b. Why is message set to a gensym?
+
+The message is set to a gensym because this allows the program to give the message a unique indintifier which also gives the 
+initiated macro a unique identify. This makes it possible for the macro to run in the program while avoiding the risk of
+conflict from similar variable names.
+
 TODO 1c. Implement "data-as-case": 
 
     (datas-as-case '(name balance interest-rate))
@@ -356,23 +365,24 @@ object
     trimmed-account
 
 |#
+
 (defmacro defklass (klass &key has does isa)
-  (let* ((message (gensym "MESSAGE"))
-	 (b4          (and isa (gethash isa *meta*)))
+  (let* ((message (gensym "MESSAGE")))      
+	 (let* ((b4          (and isa (gethash isa *meta*)))
 	 (has-before  (and b4 (about-has b4)))
-         (does-before (and b4 (about-does b4))))	 
-    	(setf has (append has has-before))
-	(setf does (append does does-before))
-	(setf (gethash klass *meta*)
+   (does-before (and b4 (about-does b4))))	 
+(setf has (append has has-before))
+(setf does (append does does-before))
+(setf (gethash klass *meta*)
         (make-about :has has :does does))
 	`(defun ,klass (&key ,@has) 
-            (let ((,self (lambda (,message)
-                           (case ,message
-                             ,@(methods-as-case does)
-                             ,@(datas-as-case (mapcar #'car has))))))
-              (send ,self '_self! ,self)
-              (send ,self '_isa! ',klass)
-              ,self))))
+            (let ((self (lambda (,message)
+              (case ,message
+                ,@(methods-as-case does)
+                ,@(datas-as-case (mapcar #'car has))))))
+              (send self '_self! self)
+              (send self '_isa! ',klass)
+              self)))))
 
 (let ((_counter 0))
   (defun counter () (incf _counter)))
@@ -383,7 +393,7 @@ object
 
 ; uncomment the following when defklass is implemented
 
-'(defklass 
+(defklass 
   object 
   :has ((_self)  (_isa) (id (counter)))
   :does (
@@ -398,7 +408,7 @@ object
                                 slot-values)))))))
 
 ; uncomment the following when defklass is implemented
-'(defklass
+(defklass
   account
   :isa object
   :has  ((name) (balance 0) (interest-rate .05))
@@ -414,7 +424,7 @@ object
 '(xpand (account))
 
 ; uncomment the following when defklass is implemented
-'(defklass
+(defklass
   trimmed-account
   :isa account
   :does ((withdraw (amt)
@@ -434,9 +444,9 @@ object
 
 ; TODO: 3a show that the following works correctly
 
-'(inheritance)
+(inheritance)
 
-'(xpand (trimmed-account))
+(xpand (trimmed-account))
 ; TODO: 3b. show that the following prints out the slots of an object.
 
 (defun meta ()
@@ -444,4 +454,4 @@ object
       (print `(meta ,(send acc 'show))
    )))
 
-'(meta)
+(meta)

@@ -356,8 +356,23 @@ object
     trimmed-account
 
 |#
-
-; implement defklass here
+(defmacro defklass (klass &key has does isa)
+  (let* ((message (gensym "MESSAGE"))
+	 (b4          (and isa (gethash isa *meta*)))
+	 (has-before  (and b4 (about-has b4)))
+         (does-before (and b4 (about-does b4))))	 
+    	(setf has (append has has-before))
+	(setf does (append does does-before))
+	(setf (gethash klass *meta*)
+        (make-about :has has :does does))
+	`(defun ,klass (&key ,@has) 
+            (let ((,self (lambda (,message)
+                           (case ,message
+                             ,@(methods-as-case does)
+                             ,@(datas-as-case (mapcar #'car has))))))
+              (send ,self '_self! ,self)
+              (send ,self '_isa! ',klass)
+              ,self))))
 
 (let ((_counter 0))
   (defun counter () (incf _counter)))

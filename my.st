@@ -7,7 +7,8 @@ s
 oo
    "Show self on Transcript"
    Transcript nextPutAll: self s;
-              cr!!
+              cr!
+!
 
 ! Symbol methods !
 talk
@@ -16,11 +17,11 @@ talk
 
 "-------------------------------------------------------"
 ! String methods !
-talk
+  talk
   "Shorthand for reading in code"
   ^FileStream fileIn: self,'.st' !
 
-asWords
+  asWords
   "Returns self, divided on whitespace."
   ^(self tokenize: '\s+') asArray !
 

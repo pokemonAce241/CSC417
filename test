@@ -1,0 +1,5 @@
+#!/bin/bash
+
+printf "Testing polyvisit.st\n--------------\n"
+
+printf "FileStream fileIn: 'my.st'.\nFileStream fileIn: 'polyvisit.st'.\nObject goodVisit." | gst

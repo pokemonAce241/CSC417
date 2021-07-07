@@ -1,0 +1,9 @@
+ln 47
+                                                     | what is this word ? | v
+%1e. The sublis function is used to substitute objects in a tree, which is a algimation of conses association lists. The function needs several
+
+ln 62
+%1f. In Prolog, the bindings variable "binds" is used to give a value to a variable in the program. This is important because it allows prolog to
+%    create queries that can help to satisfy goals. "Binds" also helps to create the basis needed to make lists and association lists possible
+%    to create in lisp.
+                  ^ | don't you mean Prolog? |
